@@ -14,10 +14,10 @@ var errorResponseFormat = `{
 }`
 
 func makeBody(error string) string {
-	return fmt.Sprintf(errorResponseFormat, error)	
+	return fmt.Sprintf(errorResponseFormat, error)
 }
 
-var jsonErrorTests = []struct{
+var jsonErrorTests = []struct {
 	body   string
 	code   int
 	error  string
@@ -33,14 +33,14 @@ func TestJSONError(t *testing.T) {
 		if err != nil {
 			t.Errorf("unexpected error %s", err.Error())
 		}
-		results := map[string]struct{
+		results := map[string]struct {
 			body   string
 			code   int
 			header string
 		}{
 			"want": {w.Body.String(), w.Code, w.HeaderMap["Content-Type"][0]},
-			"got": {tt.body, tt.code, tt.header},
-		} 
+			"got":  {tt.body, tt.code, tt.header},
+		}
 		if results["got"] != results["want"] {
 			t.Errorf("want %v, got %v", results["want"], results["got"])
 		}
